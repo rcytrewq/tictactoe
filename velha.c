@@ -4,6 +4,7 @@
 
 
 
+
 #define dim 3
 int i,j;
 int linha, coluna;
@@ -40,24 +41,32 @@ void assemble(){
 int result(){
     for (i=0; i<dim; i++){
         if(matrix[i][0]== matrix[i][1] && matrix[i][0] == matrix[i][2] && matrix[i][0] != 0){
-            printf("\t\tFim de Jogo!\nJogador %d venceu!", matrix[i][0]);
-        
-        return 1;
+            system("clear");
+            assemble();
+            printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[i][0]);
+            
+            return 1;
         }
 
         if(matrix[0][i]== matrix[1][i] && matrix[0][i] == matrix[2][i] && matrix[0][i] != 0){
-            printf("\t\tFim de Jogo!\nJogador %d venceu!", matrix[0][i]);
+            system("clear");
+            assemble();
+            printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[0][i]);
         
         return 1;
         }
 
         if(matrix[1][1]== matrix[2][2] && matrix[1][1] == matrix[0][0] && matrix[0][0] != 0){
-            printf("\t\tFim de Jogo!\nJogador %d venceu!", matrix[0][0]);
+            system("clear");
+            assemble();
+            printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[0][0]);
         
         return 1;
         }
 
         if(matrix[0][2]== matrix[1][1] && matrix[1][1] == matrix[2][0] && matrix[1][1] != 0){
+            system("clear");
+            assemble();
             printf("\t\tFim de Jogo!\nJogador %d venceu!\n\n", matrix[1][1]);
         
         return 1;
@@ -69,13 +78,17 @@ int result(){
 
 int check(int linha, int coluna){
     if( matrix[linha][coluna]!=0){
-        printf("\t\tPosição inválida; Digite novamente\n\n");
+        system("clear");
+        assemble();
+        printf("\n\t\tPosição inválida;\n\t\tDigite novamente\n\n");
         return 0;
     }
     return 1;
 }
 
 void player1(){
+    system("clear");
+    assemble();
     valid = 0;
     printf("\n\n\t\tJOGADOR 1, eh a sua vez de jogar!\n\t\tVoce deve inserir a linha e a coluna em que deseja jogar\n\n");
     
@@ -92,6 +105,8 @@ void player1(){
 }
 
 void player2(){
+    system("clear");
+    assemble();
     valid = 0;
     printf("\n\n\t\tJOGADOR 2, eh a sua vez de jogar!\n\t\tVoce deve inserir a linha e a coluna em que deseja jogar\n\n");
     
@@ -104,6 +119,7 @@ void player2(){
     }
     
     matrix[linha-1][coluna-1] = 2;
+    system("cls");
     return;
 }
 
