@@ -6,9 +6,11 @@
 
 
 #define dim 3
-int i,j;
+int i,j,i_,j_;
 int linha, coluna;
 int valid;
+char buffer;
+int esc;
 int matrix[3][3];
 
 
@@ -17,22 +19,24 @@ int matrix[3][3];
 void assemble(){
     printf("\n\n\t\tlin | col->   1   2   3  \n\t\t |  |-------------------");
     printf("\n\t\t v  |\n\t\t    |\n");
-    for (i=0; i<dim; i++){
-        printf("\t\t %d  |\t     ", i+1);
-        for (j=0; j<dim; j++){
-            if(matrix[i][j] == 0){
-                printf("   ");
+    for (i_=0; i_<dim; i_++){
+        printf("\t\t %d  |\t     ", i_+1);
+        for (j_=0; j_<dim; j_++){
+            if(matrix[i_][j_] == 0){
+                printf(" 0 ");
             }
-            else if (matrix[i][j] == 1){
+            else if (matrix[i_][j_] == 1){
                 printf(" X ");
+                
             }
             else{
                 printf(" O ");
+                
             }
 
-            if(j!=2) printf("|");
+            if(j_!=2) printf("|");
         }
-        if (i!=2) printf("\t\t\n\t\t    |\t     -----------\n");
+        if (i_!=2) printf("\t\t\n\t\t    |\t     -----------\n");
     }
     printf("\t\t\n\n");
     return;
@@ -47,7 +51,6 @@ int result(){
             
             return 1;
         }
-
         if(matrix[0][i]== matrix[1][i] && matrix[0][i] == matrix[2][i] && matrix[0][i] != 0){
             system("clear");
             assemble();
@@ -67,7 +70,7 @@ int result(){
         if(matrix[0][2]== matrix[1][1] && matrix[1][1] == matrix[2][0] && matrix[1][1] != 0){
             system("clear");
             assemble();
-            printf("\t\tFim de Jogo!\nJogador %d venceu!\n\n", matrix[1][1]);
+            printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[1][1]);
         
         return 1;
         }
@@ -119,14 +122,12 @@ void player2(){
     }
     
     matrix[linha-1][coluna-1] = 2;
-    system("cls");
+    
     return;
 }
 
 
-void replaymenu(){
-    return;
-}
+
 
 void matrixreset(){
     for (i=0; i<dim; i++){
@@ -135,6 +136,23 @@ void matrixreset(){
         }   
     
     }
+}
+
+
+
+void replaymenu(){
+
+    printf("\n\n\t\tAperte enter para ir ao menu\n");
+    scanf("%c%c", &buffer, &buffer);
+    system("clear");
+    printf("\n\n\t\t DESEJA JOGAR NOVAMENTE?");
+    printf("\n\n\t\t1 - Sim\n\t\t2 - Nao\n\n\t\t");
+    scanf("%c", &buffer);
+    if(buffer!='1'){
+        esc=1;
+    }  
+
+    return;
 }
 
 void game(){
@@ -158,11 +176,11 @@ void game(){
 
 }
 
-
 int main(){
-    
+    esc=0;
 
-    game();
-    
+    while (esc!=1){
+        game();
+    }
     return 0;
 }
