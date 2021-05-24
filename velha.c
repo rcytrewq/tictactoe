@@ -2,7 +2,8 @@
 #include <stdlib.h>
 
 
-
+//VERIFICAR SE A LINHA E COLUNA INSERIDA SAO VALIDAS
+    
 
 
 #define dim 3
@@ -12,7 +13,8 @@ int valid;
 char buffer;
 int esc;
 int matrix[3][3];
-
+int mode;
+int play1, play2, vel;
 
 
 
@@ -23,7 +25,7 @@ void assemble(){
         printf("\t\t %d  |\t     ", i_+1);
         for (j_=0; j_<dim; j_++){
             if(matrix[i_][j_] == 0){
-                printf(" 0 ");
+                printf("   ");
             }
             else if (matrix[i_][j_] == 1){
                 printf(" X ");
@@ -48,6 +50,8 @@ int result(){
             system("clear");
             assemble();
             printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[i][0]);
+            if(matrix[i][0]==1) play1++;
+            else play2++;
             
             return 1;
         }
@@ -55,6 +59,8 @@ int result(){
             system("clear");
             assemble();
             printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[0][i]);
+            if(matrix[0][i]==1) play1++;
+            else play2++;
         
         return 1;
         }
@@ -63,6 +69,8 @@ int result(){
             system("clear");
             assemble();
             printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[0][0]);
+            if(matrix[0][0]==1) play1++;
+            else play2++;
         
         return 1;
         }
@@ -71,6 +79,17 @@ int result(){
             system("clear");
             assemble();
             printf("\t\tFim de Jogo!\n\t\tJogador %d venceu!\n\n", matrix[1][1]);
+            if(matrix[1][1]==1) play1++;
+            else play2++;
+        
+        return 1;
+        }
+
+        if(matrix[0][0] != 0 && matrix[0][1] != 0 && matrix[0][2] != 0 && matrix[1][0] != 0 && matrix[1][1] != 0 && matrix[1][2] != 0 && matrix[2][0] != 0 && matrix[2][1] != 0 && matrix[2][2] != 0){
+            system("clear");
+            assemble();
+            printf("\t\tFim de Jogo!\n\t\tTemos um empate!\n\n");
+            vel++;
         
         return 1;
         }
@@ -80,7 +99,7 @@ int result(){
 }
 
 int check(int linha, int coluna){
-    if( matrix[linha][coluna]!=0){
+    if( matrix[linha][coluna]!=0 || linha<0 || linha>=3 || coluna<0 || coluna>=3){
         system("clear");
         assemble();
         printf("\n\t\tPosição inválida;\n\t\tDigite novamente\n\n");
@@ -154,8 +173,21 @@ void replaymenu(){
 
     return;
 }
-
+void score(){
+    system("clear");
+    printf("\n\t\t\t|-----------|\n");
+    printf("\t\t\t|   SCORE   |\n");
+    printf("\t\t\t|           |\n");
+    printf("\t\t\t|Player1 - %d|\n", play1);
+    printf("\t\t\t|Player2 - %d|\n", play2);
+    printf("\t\t\t|Tie     - %d|\n", vel);
+    printf("\t\t\t|-----------|\n");
+    printf("\n\n\n\n\t\tAperte enter para continuar");
+    scanf("%c%c", &buffer, &buffer);
+    return;
+}
 void game(){
+    //score();
     matrixreset();
     //sorteio de quem começa
     assemble();
@@ -173,14 +205,35 @@ void game(){
             break;
         }
     }
+    score();
 
 }
 
-int main(){
-    esc=0;
 
-    while (esc!=1){
-        game();
+
+void menu(){
+    system("clear");
+    printf("\n\n\t\t\tTIC TAC TOE");
+    printf("\n\n\t\tDigite o modo de jogo:\n\n\t\t1 - Player1 vs Player2\n\n\t\t");
+    scanf("%d", &mode);
+    if(mode==1){
+        play1=0;
+        play2=0;
+        vel=0;
+        while (esc!=1){
+            game();
+        }
+        score();
     }
+    return;
+}
+
+int main(){
+    
+    esc=0;
+    menu();
+    
+
+    printf("\n\n\n");
     return 0;
 }
